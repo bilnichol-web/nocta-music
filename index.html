@@ -2,67 +2,68 @@
 <html lang="id">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#101014"><title>NOCTA — Music for your mood</title>
+<meta name="theme-color" content="#0b0b10">
+<title>NOCTA — Music for your mood</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#101014;color:#f5f5f7;font:15px Arial,sans-serif}
-header{padding:22px 18px;border-bottom:1px solid #292932;display:flex;justify-content:space-between;align-items:center}
-.logo{font-size:25px;font-weight:800;letter-spacing:4px;color:#b69cff}header small{color:#999}
-main{max-width:900px;margin:auto;padding:22px 16px 120px}
-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
-button{border:0;border-radius:22px;padding:10px 15px;background:#292932;color:#eee;cursor:pointer}
-button.active,.primary{background:#9b7bff;color:#100d18;font-weight:bold}
-input{width:100%;padding:15px;border-radius:14px;border:1px solid #383844;background:#1b1b23;color:white;font-size:16px}
-h2{font-size:22px}.muted{color:#999}.tracks{display:grid;gap:10px;margin-top:16px}
-.track{display:flex;gap:12px;align-items:center;background:#1b1b23;padding:10px;border-radius:14px}
-.track img{width:58px;height:58px;border-radius:9px;object-fit:cover}.info{min-width:0;flex:1}.info b,.info small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.info small{color:#aaa;margin-top:6px}
-.track button{padding:9px 11px}.empty{color:#999;padding:25px 5px;text-align:center}
-.player{position:fixed;bottom:0;left:0;right:0;background:#191920;border-top:1px solid #353541;padding:12px 16px;display:flex;gap:12px;align-items:center}
-.player img{width:48px;height:48px;border-radius:8px}.player .info{flex:1;min-width:0}.player button{background:#9b7bff;color:#100d18;font-weight:bold}
-audio{display:none}footer{text-align:center;color:#777;font-size:12px;margin-top:35px}a{color:#b69cff}
-</style></head>
+:root{--bg:#0b0b10;--panel:#14141d;--panel2:#1b1b26;--line:#292938;--purple:#b9a1ff;--purple2:#8c6bfa;--text:#f4f3fa;--muted:#9999aa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% 0%,#251a3a 0,transparent 36%),radial-gradient(ellipse at 100% 30%,#171d31 0,transparent 32%),var(--bg);color:var(--text);font:15px Inter,Arial,sans-serif;min-height:100vh}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.10;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'%3E%3Cg fill='none' stroke='%23c8b8ff' stroke-width='1'%3E%3Cpath d='M0 0L600 600M600 0L0 600M300 0V600M0 300H600M150 0L450 600M450 0L150 600M0 150L600 450M0 450L600 150'/%3E%3Ccircle cx='300' cy='300' r='90'/%3E%3Ccircle cx='300' cy='300' r='180'/%3E%3Ccircle cx='300' cy='300' r='270'/%3E%3C/g%3E%3C/svg%3E");background-size:540px}
+header{max-width:1100px;margin:auto;padding:22px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-weight:900;letter-spacing:5px;font-size:26px;color:var(--purple);text-shadow:0 0 24px #9a78ff44}.tag{color:var(--muted);font-size:12px;letter-spacing:1px}
+main{max-width:1100px;margin:auto;padding:10px 20px 150px}
+.hero{position:relative;overflow:hidden;border:1px solid #353348;background:linear-gradient(135deg,#211a31cc,#14151fcc);border-radius:30px;padding:28px;margin:8px 0 22px;box-shadow:0 18px 60px #0005}
+.hero:after{content:"";position:absolute;width:230px;height:230px;border:1px solid #c7b2ff44;border-radius:50%;right:-80px;top:-80px;box-shadow:0 0 0 28px #b69cff08,0 0 0 60px #b69cff06}
+.hero h1{font-size:clamp(26px,5vw,44px);margin:0 0 9px;letter-spacing:-1px}.hero p{margin:0;color:#b7b5c6;max-width:520px;line-height:1.6}.hero .orb{position:absolute;right:45px;bottom:22px;width:95px;height:95px;border-radius:50%;background:linear-gradient(145deg,#d6c8ff,#8060dd);box-shadow:inset -14px -18px 25px #4d3188aa,0 0 35px #9270ff33;opacity:.8}
+nav{display:flex;gap:9px;flex-wrap:wrap;margin:20px 0 24px}button{border:1px solid #343444;border-radius:24px;padding:11px 15px;background:#20202b;color:var(--text);cursor:pointer;font-weight:600;transition:.18s}button:hover{transform:translateY(-1px);border-color:#8d78d8;background:#2b263a}.active,.primary{background:linear-gradient(135deg,#c8b5ff,#9678f7)!important;color:#17111f!important;border-color:transparent!important}.soft{background:#292536;border-color:#423755}.danger{border-color:#56343e;color:#f0b8c4}
+section{animation:fade .2s ease}@keyframes fade{from{opacity:.5;transform:translateY(4px)}to{opacity:1;transform:none}}
+h2{font-size:23px;margin:12px 0}.muted{color:var(--muted)}.searchbar{display:flex;gap:10px}.searchbar input{flex:1;min-width:0}
+input,textarea,select{width:100%;padding:15px;border-radius:16px;border:1px solid #39394b;background:#171720;color:white;font-size:16px;outline:none}input:focus,textarea:focus,select:focus{border-color:#a88bff;box-shadow:0 0 0 3px #a88bff18}textarea{min-height:110px;resize:vertical}
+.tracks{display:grid;gap:12px;margin-top:16px}.track{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid #292938;background:linear-gradient(135deg,#191923,#15151d);border-radius:23px;box-shadow:0 8px 25px #0002;min-width:0}.track img{width:62px;height:62px;border-radius:17px;object-fit:cover;background:#2c2b3a}.info{min-width:0;flex:1}.info b,.info small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.info small{color:#a6a5b4;margin-top:5px}.track .actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.track button{padding:9px 12px}
+.empty{color:var(--muted);padding:28px 8px;text-align:center;border:1px dashed #39394b;border-radius:20px}.pill{display:inline-block;border:1px solid #383647;border-radius:30px;padding:7px 11px;color:#c8bddf;font-size:12px}
+.panel{background:#171720;border:1px solid #30303e;border-radius:25px;padding:20px;margin:14px 0}.playlist-head{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.playlist-head .info{flex:1}
+footer{text-align:center;color:#777;font-size:12px;margin-top:35px;line-height:1.8}a{color:#c4aaff;text-decoration:none}a:hover{text-decoration:underline}
+.player{position:fixed;bottom:0;left:0;right:0;background:#13131beF;border-top:1px solid #383747;padding:12px max(16px,calc((100vw - 1100px)/2));display:flex;gap:12px;align-items:center;backdrop-filter:blur(18px);z-index:5}.player img{width:48px;height:48px;border-radius:15px;object-fit:cover;background:#242432}.player .info{flex:1;min-width:0}.player button{background:linear-gradient(135deg,#c8b5ff,#9678f7);color:#17111f;border:0;font-weight:bold}.player-controls{display:flex;gap:8px}audio{display:none}.hide{display:none!important}
+@media(max-width:620px){header{padding:18px 16px}main{padding:8px 14px 145px}.hero{padding:22px}.hero .orb{width:70px;height:70px;right:22px;bottom:20px}.hero p{max-width:75%}.track{gap:9px;padding:10px}.track img{width:50px;height:50px;border-radius:13px}.track .actions button{padding:8px 9px}.player{padding:10px 12px}.player img{width:42px;height:42px}.player-controls{gap:5px}}
+</style>
+</head>
 <body>
-<header><div class="logo">NOCTA</div><small>Music for your mood</small></header>
+<header><div class="logo">NOCTA</div><div class="tag">MUSIC FOR YOUR MOOD</div></header>
 <main>
+<div class="hero"><h1>Find your <span style="color:var(--purple)">night sound.</span></h1><p>Temukan lagu yang cocok dengan suasana hatimu. A little space for every sound.</p><div class="orb"></div></div>
 <nav>
-<button class="active" data-page="search">Cari Musik</button>
-<button data-page="favorites">Favorit ♡</button>
-<button data-page="playlist">Playlist</button>
+<button class="active" data-page="search">⌕ Cari Musik</button><button data-page="favorites">♡ Favorit</button><button data-page="playlist">♫ Playlist</button><button data-page="report">⚑ Laporan</button>
 </nav>
-<section id="search">
-<h2>Temukan musikmu</h2>
-<form id="searchForm"><input id="query" placeholder="Cari judul lagu atau penyanyi..." autocomplete="off"></form>
-<p class="muted" id="status">Ketik nama lagu lalu tekan Enter.</p>
-<div class="tracks" id="results"></div>
-</section>
-<section id="favorites" hidden><h2>Lagu Favorit</h2><div class="tracks" id="favoriteList"></div></section>
-<section id="playlist" hidden><h2>Playlist Saya</h2><button class="primary" id="newPlaylist">＋ Buat playlist</button><div id="playlists"></div></section>
-<footer>© 2026 NOCTA · Owner: bil gtg ky jfri<br>Admin TikTok: <a href="https://www.tiktok.com/@eldigidw?_r=1&_t=ZS-9Au8ckVUVmi" target="_blank" rel="noopener"> @eldigidw </a><br><small>Preview musik disediakan oleh iTunes.</small></footer>
+<section id="search"><h2>Temukan musikmu</h2><form id="searchForm" class="searchbar"><input id="query" placeholder="Cari judul lagu atau penyanyi..." autocomplete="off"><button class="primary" type="submit">Cari</button></form><p class="muted" id="status">Ketik nama lagu lalu tekan Cari.</p><div class="tracks" id="results"></div></section>
+<section id="favorites" hidden><h2>Lagu Favorit <span class="pill">Your saved sounds</span></h2><div class="tracks" id="favoriteList"></div></section>
+<section id="playlist" hidden><div class="playlist-head"><div class="info"><h2>Playlist Saya</h2><small class="muted">Kumpulan lagu pilihanmu.</small></div><button class="primary" id="newPlaylist">＋ Buat playlist</button></div><div id="playlists"></div></section>
+<section id="report" hidden><h2>Pusat laporan</h2><p class="muted">Laporkan kendala, lagu yang tidak bisa diputar, atau saran untuk NOCTA.</p><div class="panel"><form id="reportForm"><label class="muted" for="reportType">Jenis laporan</label><select id="reportType" required><option value="">Pilih kategori</option><option>Bug / kendala</option><option>Masalah pemutar musik</option><option>Saran fitur</option><option>Lainnya</option></select><p><label class="muted" for="reportText">Detail laporan</label></p><textarea id="reportText" placeholder="Ceritakan kendala atau saranmu..." required></textarea><p><button class="primary" type="submit">Kirim laporan via email</button></p><small class="muted">Laporan akan disiapkan di aplikasi email kamu. Tidak ada data yang dikirim otomatis.</small></form></div></section>
+<footer>© 2026 NOCTA · Admin <b style="color:#c3b0ff">bildjavu</b><br><a href="https://www.tiktok.com/@eldigidw?_r=1&_t=ZS-9Au8ckVUVmi" target="_blank" rel="noopener">TikTok</a> · <a id="waLink" href="#" target="_blank" rel="noopener">WhatsApp</a><br><small>Preview musik disediakan oleh iTunes.</small></footer>
 </main>
-<div class="player">
-<img id="cover" src="" alt="" style="display:none">
-<div class="info"><b id="songTitle">Belum ada lagu diputar</b><small id="songArtist">Pilih lagu untuk mulai mendengarkan</small></div>
-<button id="playPause">▶</button>
-</div>
-<audio id="audio" controls></audio>
+<div class="player"><img id="cover" src="" alt="" style="display:none"><div class="info"><b id="songTitle">Belum ada lagu diputar</b><small id="songArtist">Pilih lagu untuk mulai mendengarkan</small></div><div class="player-controls"><button id="playPause" aria-label="Play atau pause">▶</button></div></div><audio id="audio"></audio>
 <script>
 const $=id=>document.getElementById(id);
-let tracks=[], favorites=JSON.parse(localStorage.getItem('nocta-favs')||'[]'),
-playlists=JSON.parse(localStorage.getItem('nocta-playlists')||'[]'), current=null;
+const WA_NUMBER=""; // Isi nomor admin format internasional, tanpa +, jika ingin mengaktifkan link WA.
+$('waLink').href=WA_NUMBER?"https://wa.me/"+WA_NUMBER:"https://wa.me/";
+let tracks=[],favorites=JSON.parse(localStorage.getItem('nocta-favs')||'[]'),playlists=JSON.parse(localStorage.getItem('nocta-playlists')||'[]'),current=null;
 function save(){localStorage.setItem('nocta-favs',JSON.stringify(favorites));localStorage.setItem('nocta-playlists',JSON.stringify(playlists))}
 function safe(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function card(t){let fav=favorites.some(x=>x.trackId===t.trackId);return `<div class="track"><img src="${safe(t.artworkUrl100)}"><div class="info"><b>${safe(t.trackName)}</b><small>${safe(t.artistName)}</small></div><button onclick="play(${t.trackId})">▶</button><button onclick="toggleFav(${t.trackId})">${fav?'♥':'♡'}</button></div>`}
+function card(t){let fav=favorites.some(x=>x.trackId===t.trackId);return `<div class="track"><img src="${safe(t.artworkUrl100||'')}" alt=""><div class="info"><b>${safe(t.trackName)}</b><small>${safe(t.artistName)}</small></div><div class="actions"><button onclick="play(${t.trackId})" title="Putar">▶</button><button onclick="toggleFav(${t.trackId})" title="Favorit">${fav?'♥':'♡'}</button><button onclick="addTrackPrompt(${t.trackId})" title="Tambah ke playlist">＋</button></div></div>`}
 function render(list,target){$(target).innerHTML=list.length?list.map(card).join(''):'<div class="empty">Belum ada lagu di sini.</div>'}
-async function search(q){if(!q.trim())return;$('status').textContent='Sedang mencari...';$('results').innerHTML='';try{let r=await fetch('https://itunes.apple.com/search?term='+encodeURIComponent(q)+'&entity=song&limit=30');let d=await r.json();tracks=d.results.filter(x=>x.previewUrl);$('status').textContent=tracks.length?'Hasil pencarian (preview singkat):':'Lagu tidak ditemukan. Coba kata kunci lain.';render(tracks,'results')}catch(e){$('status').textContent='Pencarian gagal. Periksa koneksi internet lalu coba lagi.'}}
+async function search(q){if(!q.trim())return;$('status').textContent='Sedang mencari...';$('results').innerHTML='';try{let r=await fetch('https://itunes.apple.com/search?term='+encodeURIComponent(q)+'&entity=song&limit=30');if(!r.ok)throw Error();let d=await r.json();tracks=(d.results||[]).filter(x=>x.previewUrl);$('status').textContent=tracks.length?'Hasil pencarian · preview singkat':'Lagu tidak ditemukan. Coba kata kunci lain.';render(tracks,'results')}catch(e){$('status').textContent='Pencarian gagal. Periksa koneksi internet lalu coba lagi.'}}
 $('searchForm').addEventListener('submit',e=>{e.preventDefault();search($('query').value)});
-function play(id){let t=[...tracks,...favorites,...playlists.flatMap(p=>p.tracks)].find(x=>x.trackId===id);if(!t)return;current=t;$('audio').src=t.previewUrl;$('audio').play();$('cover').src=t.artworkUrl100;$('cover').style.display='block';$('songTitle').textContent=t.trackName;$('songArtist').textContent=t.artistName;$('playPause').textContent='Ⅱ'}
-$('playPause').onclick=()=>{if(!$('audio').src)return;if($('audio').paused){$('audio').play();$('playPause').textContent='Ⅱ'}else{$('audio').pause();$('playPause').textContent='▶'}};
-$('audio').onended=()=> $('playPause').textContent='▶';
-function toggleFav(id){let t=[...tracks,...favorites].find(x=>x.trackId===id);if(!t)return;favorites=favorites.some(x=>x.trackId===id)?favorites.filter(x=>x.trackId!==id):[...favorites,t];save();render(tracks,'results');render(favorites,'favoriteList')}
-window.play=play;window.toggleFav=toggleFav;
+function findTrack(id){return [...tracks,...favorites,...playlists.flatMap(p=>p.tracks||[])].find(x=>x.trackId===id)}
+function play(id){let t=findTrack(id);if(!t||!t.previewUrl)return;current=t;$('audio').src=t.previewUrl;$('audio').play().catch(()=>{});$('cover').src=t.artworkUrl100||'';$('cover').style.display='block';$('songTitle').textContent=t.trackName;$('songArtist').textContent=t.artistName;$('playPause').textContent='Ⅱ'}
+$('playPause').onclick=()=>{if(!$('audio').src)return;if($('audio').paused){$('audio').play().catch(()=>{});$('playPause').textContent='Ⅱ'}else{$('audio').pause();$('playPause').textContent='▶'}};
+$('audio').onended=()=> $('playPause').textContent='▶';$('audio').onpause=()=> $('playPause').textContent='▶';$('audio').onplay=()=> $('playPause').textContent='Ⅱ';
+function toggleFav(id){let t=findTrack(id);if(!t)return;favorites=favorites.some(x=>x.trackId===id)?favorites.filter(x=>x.trackId!==id):[...favorites,t];save();render(tracks,'results');render(favorites,'favoriteList')}
+function addTrackPrompt(id){let t=findTrack(id);if(!t)return;if(!playlists.length){alert('Buat playlist terlebih dahulu di tab Playlist.');show('playlist');return}let choices=playlists.map((p,i)=>`${i+1}. ${p.name}`).join('\n');let n=prompt('Tambahkan lagu ke playlist mana?\n'+choices+'\nKetik nomor playlist:');let i=Number(n)-1;if(Number.isInteger(i)&&i>=0&&i<playlists.length){if(!playlists[i].tracks.some(x=>x.trackId===id))playlists[i].tracks.push(t);save();alert('Lagu berhasil ditambahkan ke '+playlists[i].name)}}
+window.play=play;window.toggleFav=toggleFav;window.addTrackPrompt=addTrackPrompt;
 function show(page){document.querySelectorAll('main section').forEach(s=>s.hidden=s.id!==page);document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));if(page==='favorites')render(favorites,'favoriteList');if(page==='playlist')renderPlaylists()}
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>show(b.dataset.page));
-function renderPlaylists(){$('playlists').innerHTML=playlists.length?playlists.map((p,i)=>`<div class="track" style="margin-top:12px"><div class="info"><b>${safe(p.name)}</b><small>${p.tracks.length} lagu</small></div><button onclick="addSong(${i})">＋ Lagu</button><button onclick="openList(${i})">Lihat</button></div><div id="pl${i}"></div>`).join(''):'<p class="empty">Belum ada playlist.</p>'}
-function addSong(i){if(!tracks.length){alert('Cari lagu terlebih dahulu di menu Cari Musik.');return}let t=tracks[0];if(!playlists[i].tracks.some(x=>x.trackId===t.trackId))playlists[i].tracks.push(t);save();renderPlaylists();alert('Lagu pertama dari hasil pencarian ditambahkan.')}
+function renderPlaylists(){$('playlists').innerHTML=playlists.length?playlists.map((p,i)=>`<div class="panel"><div class="playlist-head"><div class="info"><b>${safe(p.name)}</b><small class="muted">${p.tracks.length} lagu</small></div><button onclick="openList(${i})">Lihat lagu</button><button class="danger" onclick="deletePlaylist(${i})">Hapus</button></div><div id="pl${i}" class="tracks"></div></div>`).join(''):'<p class="empty">Belum ada playlist. Buat playlist pertamamu!</p>'}
 function openList(i){render(playlists[i].tracks,'pl'+i)}
+function deletePlaylist(i){if(confirm('Hapus playlist '+playlists[i].name+'?')){playlists.splice(i,1);save();renderPlaylists()}}
+window.openList=openList;window.deletePlaylist=deletePlaylist;
 $('newPlaylist').onclick=()=>{let name=prompt('Nama playlist:');if(name&&name.trim()){playlists.push({name:name.trim(),tracks:[]});save();renderPlaylists()}}
+$('reportForm').onsubmit=e=>{e.preventDefault();let subject=encodeURIComponent('Laporan NOCTA - '+$('reportType').value),body=encodeURIComponent($('reportText').value);alert('Form email akan dibuka. Atur alamat email admin pada kode sebelum laporan digunakan.');window.location.href='mailto:?subject='+subject+'&body='+body};
 </script></body></html>
