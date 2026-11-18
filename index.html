@@ -42,9 +42,9 @@ footer{text-align:center;color:#777;font-size:12px;margin-top:35px;line-height:1
 <div style="flex:1;min-width:0"><small class="muted">NOCTA ADMIN</small><div style="font-weight:800;font-size:18px;color:#c5b1ff;margin-top:4px">bildjavu</div><small class="muted">Music curator · NOCTA</small></div>
 <div style="display:flex;gap:7px;flex-wrap:wrap"><a class="pill" href="https://www.tiktok.com/@eldigidw?_r=1&_t=ZS-9Au8ckVUVmi" target="_blank" rel="noopener">TikTok ↗</a><a class="pill" id="adminWA" href="https://wa.me/" target="_blank" rel="noopener">WhatsApp ↗</a></div>
 </div>
-<footer>© 2026 NOCTA · Admin <b style="color:#c3b0ff">bildjavu</b><br><a href="https://www.tiktok.com/@eldigidw?_r=1&_t=ZS-9Au8ckVUVmi" target="_blank" rel="noopener">TikTok</a> · <a id="waLink" href="#" target="_blank" rel="noopener">WhatsApp</a><br><small>Preview musik disediakan oleh iTunes.</small></footer>
+<footer>© 2026 NOCTA · Admin <b style="color:#c3b0ff">bildjavu</b><br><a href="https://www.tiktok.com/@eldigidw?_r=1&_t=ZS-9Au8ckVUVmi" target="_blank" rel="noopener">TikTok</a> · <a id="waLink" href="#" target="_blank" rel="noopener">WhatsApp</a><br><small>Player NOCTA memainkan preview singkat. Tombol ♫ mencari lagu di Spotify untuk opsi pemutaran penuh.</small></footer>
 </main>
-<div class="player"><img id="cover" src="" alt="" style="display:none"><div class="info"><b id="songTitle">Belum ada lagu diputar</b><small id="songArtist">Pilih lagu untuk mulai mendengarkan</small></div><div class="player-controls"><button id="playPause" aria-label="Play atau pause">▶</button></div></div><audio id="audio"></audio>
+<div class="player"><img id="cover" src="" alt="" style="display:none"><div class="info"><b id="songTitle">Belum ada lagu diputar</b><small id="songArtist">Pilih lagu untuk mulai mendengarkan</small></div><div class="player-controls"><button id="playPause" aria-label="Play atau pause">▶</button><button id="fullLink" title="Cari pemutaran penuh di Spotify">♫</button></div></div><audio id="audio"></audio>
 <script>
 const $=id=>document.getElementById(id);
 const WA_NUMBER=""; // Isi nomor admin format internasional, tanpa +, jika ingin mengaktifkan link WA.
@@ -57,7 +57,14 @@ function render(list,target){$(target).innerHTML=list.length?list.map(card).join
 async function search(q){if(!q.trim())return;$('status').textContent='Sedang mencari...';$('results').innerHTML='';try{let r=await fetch('https://itunes.apple.com/search?term='+encodeURIComponent(q)+'&entity=song&limit=30');if(!r.ok)throw Error();let d=await r.json();tracks=(d.results||[]).filter(x=>x.previewUrl);$('status').textContent=tracks.length?'Hasil pencarian · preview singkat':'Lagu tidak ditemukan. Coba kata kunci lain.';render(tracks,'results')}catch(e){$('status').textContent='Pencarian gagal. Periksa koneksi internet lalu coba lagi.'}}
 $('searchForm').addEventListener('submit',e=>{e.preventDefault();search($('query').value)});
 function findTrack(id){return [...tracks,...favorites,...playlists.flatMap(p=>p.tracks||[])].find(x=>x.trackId===id)}
-function play(id){let t=findTrack(id);if(!t||!t.previewUrl)return;current=t;$('audio').pause();$('audio').src=t.previewUrl;$('audio').load();$('audio').addEventListener('loadedmetadata',function resetPreview(){$('audio').currentTime=0;$('audio').removeEventListener('loadedmetadata',resetPreview);$('audio').play().catch(()=>{});},{once:true});$('cover').src=t.artworkUrl100||'';$('cover').style.display='block';$('songTitle').textContent=t.trackName;$('songArtist').textContent=t.artistName;$('playPause').textContent='Ⅱ'}
+function play(id){let t=findTrack(id);if(!t||!t.previewUrl)return;current=t;
+$('audio').pause();$('audio').src=t.previewUrl;$('audio').load();
+$('audio').play().catch(()=>{});
+$('cover').src=t.artworkUrl100||'';$('cover').style.display='block';
+$('songTitle').textContent=t.trackName;$('songArtist').textContent=t.artistName+' · Preview';
+$('playPause').textContent='Ⅱ';
+$('fullLink').onclick=()=>window.open('https://open.spotify.com/search/'+encodeURIComponent(t.trackName+' '+t.artistName),'_blank','noopener');
+}
 function openFull(id){let t=findTrack(id);if(t&&t.trackViewUrl)window.open(t.trackViewUrl,'_blank','noopener');else alert('Link halaman lagu tidak tersedia untuk lagu ini.')}
 $('playPause').onclick=()=>{if(!$('audio').src)return;if($('audio').paused){$('audio').play().catch(()=>{});$('playPause').textContent='Ⅱ'}else{$('audio').pause();$('playPause').textContent='▶'}};
 $('audio').onended=()=> $('playPause').textContent='▶';$('audio').onpause=()=> $('playPause').textContent='▶';$('audio').onplay=()=> $('playPause').textContent='Ⅱ';
