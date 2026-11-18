@@ -4,105 +4,65 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#101014"><title>NOCTA — Music for your mood</title>
 <style>
-:root{--bg:#0d0d12;--panel:#17171f;--panel2:#20202a;--muted:#9a9aa8;--text:#f5f5f7;--accent:#a78bfa;--accent2:#7c5ce7;--line:#2a2a35}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 Inter,system-ui,Arial,sans-serif}
-button,input{font:inherit}button{cursor:pointer;border:0;color:inherit}.app{display:grid;grid-template-columns:245px 1fr;min-height:100vh;padding-bottom:94px}
-.sidebar{background:#111117;border-right:1px solid var(--line);padding:26px 18px;position:sticky;top:0;height:100vh}
-.brand{font-weight:900;letter-spacing:3px;font-size:22px;margin:4px 10px 35px;display:flex;gap:10px;align-items:center}.brand-mark{width:29px;height:29px;border-radius:9px;background:linear-gradient(135deg,#c4b5fd,#7c3aed);display:grid;place-items:center;color:#15121f}
-.nav-label{font-size:11px;color:#737382;text-transform:uppercase;letter-spacing:1.5px;margin:24px 10px 9px}
-.nav button{width:100%;display:flex;gap:13px;align-items:center;padding:12px 13px;border-radius:10px;background:transparent;color:var(--muted);text-align:left;margin:3px 0}
-.nav button.active,.nav button:hover{background:#24212f;color:white}.nav .ico{width:20px;text-align:center;font-size:17px}
-.side-note{position:absolute;bottom:25px;left:24px;right:24px;color:#777785;font-size:12px}
-main{padding:28px clamp(18px,4vw,54px);max-width:1500px;width:100%;margin:auto}
-.topbar{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:32px}
-.search{display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);padding:11px 15px;border-radius:30px;width:min(510px,100%)}
-.search input{background:transparent;border:0;outline:0;color:white;width:100%}.search input::placeholder{color:#777785}
-.profile{color:var(--muted);font-size:13px;white-space:nowrap}
-.hero{background:radial-gradient(circle at 80% 20%,#55408b 0,transparent 36%),linear-gradient(120deg,#28213b,#17151f 65%);border:1px solid #393047;border-radius:22px;padding:clamp(23px,4vw,42px);min-height:210px;display:flex;align-items:center;justify-content:space-between;overflow:hidden;margin-bottom:34px}
-.eyebrow{color:#c4b5fd;text-transform:uppercase;font-size:11px;letter-spacing:2px;font-weight:700}.hero h1{font-size:clamp(30px,5vw,48px);line-height:1.08;margin:10px 0}.hero p{color:#c1bdcd;margin:0 0 20px}.primary{background:var(--accent);color:#171321;padding:11px 19px;border-radius:25px;font-weight:800}.primary:hover{background:#c4b5fd}.hero-art{font-size:100px;filter:drop-shadow(0 14px 28px #09080d);transform:rotate(-9deg);padding:0 25px}
-.section-head{display:flex;align-items:center;justify-content:space-between;margin:28px 0 15px}.section-head h2{font-size:20px;margin:0}.subtle{color:var(--muted);font-size:13px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:17px}
-.track{background:var(--panel);padding:12px;border:1px solid transparent;border-radius:14px;min-width:0;transition:.18s}.track:hover{background:#20202a;border-color:#383344;transform:translateY(-2px)}
-.cover{width:100%;aspect-ratio:1;border-radius:10px;object-fit:cover;background:#292433}.track-title{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:10px}.artist{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.track-actions{display:flex;align-items:center;justify-content:space-between;margin-top:9px}.play-small,.heart{background:#292633;border-radius:50%;width:34px;height:34px}.play-small{background:var(--accent);color:#171321;font-weight:900}.heart{color:#b8b5c2}.heart.on{color:#ff78a8}
-.empty{border:1px dashed #383844;border-radius:14px;padding:28px;color:var(--muted);text-align:center;grid-column:1/-1}
-.page{display:none}.page.active{display:block}
-.playlist-form{display:flex;gap:9px;margin:16px 0}.playlist-form input{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:11px 13px;color:white;min-width:0}.playlist-form button{background:var(--accent);color:#171321;border-radius:9px;padding:0 15px;font-weight:700}
-.playlist-row{background:var(--panel);padding:15px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;margin:9px 0}
-.player{position:fixed;bottom:0;left:0;right:0;background:#17171f;border-top:1px solid #30303b;display:grid;grid-template-columns:1fr 1.4fr 1fr;align-items:center;padding:12px 25px;gap:20px;z-index:5}
-.now{display:flex;align-items:center;gap:12px;min-width:0}.now img{width:48px;height:48px;border-radius:7px;object-fit:cover;background:#292433}.now-title{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.now-artist{font-size:12px;color:var(--muted)}
-.controls{display:flex;align-items:center;justify-content:center;gap:17px}.controls button{background:transparent;color:#c5c3ce;font-size:19px}.controls .big{background:var(--accent);color:#171321;width:39px;height:39px;border-radius:50%;font-size:17px}
-.progress{display:flex;align-items:center;gap:9px;color:#888895;font-size:10px;margin-top:5px}.bar{height:4px;background:#393943;border-radius:9px;flex:1;overflow:hidden}.bar span{display:block;background:var(--accent);height:100%;width:0}
-.player-right{text-align:right;color:var(--muted);font-size:12px}
-.lyrics-box{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:25px;max-width:700px;color:#c7c5d0}
-.site-credit{margin:34px 0 18px;padding:18px 0 4px;border-top:1px solid var(--line);color:var(--muted);font-size:12px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}.site-credit strong{color:#e8e4f2}.site-credit a{color:#c4b5fd;text-decoration:none}.site-credit a:hover{text-decoration:underline}
-@media(max-width:760px){.app{display:block;padding-bottom:150px}.sidebar{height:auto;position:sticky;top:0;z-index:4;padding:10px 13px;border-right:0;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.brand{margin:0;font-size:18px}.nav{display:flex;gap:4px}.nav-label,.side-note{display:none}.nav button{width:auto;margin:0;padding:9px 10px}.nav button .navtext{display:none}.nav .ico{width:auto}.topbar{margin:20px 0}.hero-art{font-size:65px;padding:0}.player{grid-template-columns:1fr auto;padding:10px 13px;gap:8px}.controls{grid-column:2;grid-row:1}.controls button:not(.big){display:none}.player-right{display:none}.now img{width:42px;height:42px}.progress{position:absolute;bottom:0;left:0;right:0;margin:0}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}}
+*{box-sizing:border-box}body{margin:0;background:#101014;color:#f5f5f7;font:15px Arial,sans-serif}
+header{padding:22px 18px;border-bottom:1px solid #292932;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:25px;font-weight:800;letter-spacing:4px;color:#b69cff}header small{color:#999}
+main{max-width:900px;margin:auto;padding:22px 16px 120px}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+button{border:0;border-radius:22px;padding:10px 15px;background:#292932;color:#eee;cursor:pointer}
+button.active,.primary{background:#9b7bff;color:#100d18;font-weight:bold}
+input{width:100%;padding:15px;border-radius:14px;border:1px solid #383844;background:#1b1b23;color:white;font-size:16px}
+h2{font-size:22px}.muted{color:#999}.tracks{display:grid;gap:10px;margin-top:16px}
+.track{display:flex;gap:12px;align-items:center;background:#1b1b23;padding:10px;border-radius:14px}
+.track img{width:58px;height:58px;border-radius:9px;object-fit:cover}.info{min-width:0;flex:1}.info b,.info small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.info small{color:#aaa;margin-top:6px}
+.track button{padding:9px 11px}.empty{color:#999;padding:25px 5px;text-align:center}
+.player{position:fixed;bottom:0;left:0;right:0;background:#191920;border-top:1px solid #353541;padding:12px 16px;display:flex;gap:12px;align-items:center}
+.player img{width:48px;height:48px;border-radius:8px}.player .info{flex:1;min-width:0}.player button{background:#9b7bff;color:#100d18;font-weight:bold}
+audio{display:none}footer{text-align:center;color:#777;font-size:12px;margin-top:35px}a{color:#b69cff}
 </style></head>
 <body>
-<div class="app">
-<aside class="sidebar">
- <div class="brand"><span class="brand-mark">♫</span> NOCTA</div>
- <div class="nav">
-  <div class="nav-label">Menu</div>
-  <button class="active" data-page="home"><span class="ico">⌂</span><span class="navtext">Beranda</span></button>
-  <button data-page="search"><span class="ico">⌕</span><span class="navtext">Cari musik</span></button>
-  <div class="nav-label">Koleksi kamu</div>
-  <button data-page="favorites"><span class="ico">♡</span><span class="navtext">Favorit</span></button>
-  <button data-page="playlists"><span class="ico">▤</span><span class="navtext">Playlist</span></button>
-  <button data-page="lyrics"><span class="ico">☷</span><span class="navtext">Lirik</span></button>
- </div>
- <div class="side-note">Musik untuk setiap suasana.<br>Versi awal · NOCTA</div>
-</aside>
+<header><div class="logo">NOCTA</div><small>Music for your mood</small></header>
 <main>
- <div class="topbar"><div class="search"><span>⌕</span><input id="query" placeholder="Cari lagu atau artis..." autocomplete="off"><span style="color:#858392">↵</span></div><div class="profile">YOUR MUSIC SPACE ✦</div></div>
- <section id="home" class="page active">
-  <div class="hero"><div><div class="eyebrow">Your sound, your space</div><h1>Temukan mood<br>lewat musik.</h1><p>Jelajahi lagu dan bangun koleksi versimu.</p><button class="primary" onclick="go('search');document.getElementById('query').focus()">Mulai mencari ↗</button></div><div class="hero-art">♫</div></div>
-  <div class="section-head"><h2>Rekomendasi untukmu</h2><span class="subtle">Preview musik</span></div>
-  <div id="recommendations" class="grid"><div class="empty">Cari lagu favoritmu untuk mulai membangun koleksi.</div></div>
- </section>
- <section id="search" class="page"><div class="section-head"><h2>Jelajahi musik</h2><span class="subtle" id="search-status">Cari judul atau nama artis</span></div><div id="results" class="grid"><div class="empty">Ketik sesuatu di kotak pencarian di atas.</div></div></section>
- <section id="favorites" class="page"><div class="section-head"><h2>Lagu favorit</h2><span class="subtle">Tersimpan di perangkat ini</span></div><div id="favorite-list" class="grid"></div></section>
- <section id="playlists" class="page"><div class="section-head"><h2>Playlist kamu</h2></div><form class="playlist-form" id="playlist-form"><input id="playlist-name" placeholder="Nama playlist baru..." required><button>Buat playlist +</button></form><div id="playlist-list"></div></section>
- <section id="lyrics" class="page"><div class="section-head"><h2>Lirik lagu</h2></div><div class="lyrics-box" id="lyrics-content">Pilih lagu yang sedang diputar untuk melihat info lirik. Integrasi penyedia lirik dapat ditambahkan nanti. Untuk menghormati hak cipta, aplikasi ini tidak menampilkan lirik lagu berhak cipta secara penuh.</div></section>
-<div class="site-credit">
-  <div>© 2026 NOCTA · Hak cipta desain dan identitas situs. <strong>Owner: bil gtg ky jfri</strong></div>
-  <a href="https://www.tiktok.com/@eldigidw?_r=1&_t=ZS-9Au8ckVUVmi" target="_blank" rel="noopener noreferrer">TikTok Admin · @eldigidw ↗</a>
- </div>
-</main></div>
-<footer class="player">
- <div class="now"><img id="player-cover" alt=""><div style="min-width:0"><div class="now-title" id="player-title">Belum ada lagu</div><div class="now-artist" id="player-artist">Pilih lagu untuk diputar</div></div><button class="heart" id="player-heart" title="Favoritkan">♡</button></div>
- <div><div class="controls"><button title="Sebelumnya" onclick="previousTrack()">◂</button><button class="big" id="toggle-play" onclick="togglePlay()">▶</button><button title="Berikutnya" onclick="nextTrack()">▸</button></div><div class="progress"><span id="elapsed">0:00</span><div class="bar"><span id="progress-fill"></span></div><span id="duration">0:30</span></div></div>
- <div class="player-right">NOCTA PLAYER<br><span id="player-state">Siap diputar</span></div>
-</footer>
-<audio id="audio"></audio>
+<nav>
+<button class="active" data-page="search">Cari Musik</button>
+<button data-page="favorites">Favorit ♡</button>
+<button data-page="playlist">Playlist</button>
+</nav>
+<section id="search">
+<h2>Temukan musikmu</h2>
+<form id="searchForm"><input id="query" placeholder="Cari judul lagu atau penyanyi..." autocomplete="off"></form>
+<p class="muted" id="status">Ketik nama lagu lalu tekan Enter.</p>
+<div class="tracks" id="results"></div>
+</section>
+<section id="favorites" hidden><h2>Lagu Favorit</h2><div class="tracks" id="favoriteList"></div></section>
+<section id="playlist" hidden><h2>Playlist Saya</h2><button class="primary" id="newPlaylist">＋ Buat playlist</button><div id="playlists"></div></section>
+<footer>© 2026 NOCTA · Owner: bil gtg ky jfri<br>Admin TikTok: <a href="https://www.tiktok.com/@eldigidw?_r=1&_t=ZS-9Au8ckVUVmi" target="_blank" rel="noopener"> @eldigidw </a><br><small>Preview musik disediakan oleh iTunes.</small></footer>
+</main>
+<div class="player">
+<img id="cover" src="" alt="" style="display:none">
+<div class="info"><b id="songTitle">Belum ada lagu diputar</b><small id="songArtist">Pilih lagu untuk mulai mendengarkan</small></div>
+<button id="playPause">▶</button>
+</div>
+<audio id="audio" controls></audio>
 <script>
-const $=s=>document.querySelector(s);
-let tracks=[],current=null,queue=[],favorites=JSON.parse(localStorage.getItem('nocta-favs')||'[]'),playlists=JSON.parse(localStorage.getItem('nocta-playlists')||'[]');
-const audio=$('#audio');
-function go(page){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===page));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));if(page==='favorites')renderFavorites();if(page==='playlists')renderPlaylists();}
-document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>go(b.dataset.page));
-let debounce;$('#query').addEventListener('input',e=>{clearTimeout(debounce);let q=e.target.value.trim();if(q){go('search');debounce=setTimeout(()=>search(q),500)}else{$('#results').innerHTML='<div class="empty">Ketik sesuatu di kotak pencarian di atas.</div>'}});
-function key(t){return `${t.platform}:${t.id}`}
-async function search(q){$('#search-status').textContent='Mencari di NetEase, JOOX, dan Bilibili…';$('#results').innerHTML='<div class="empty">Sedang mencari musik…</div>';try{const r=await fetch('/api/search?q='+encodeURIComponent(q));const d=await r.json();if(!r.ok)throw new Error(d.error||'Pencarian gagal');tracks=(d.results||[]).filter(t=>t.title);queue=tracks;$('#search-status').textContent=`${tracks.length} hasil · ${d.platforms_searched.join(', ')}`;renderTracks(tracks,'#results');}catch(e){$('#search-status').textContent='Pencarian gagal';$('#results').innerHTML=`<div class="empty">${esc(e.message)}. Pastikan server NOCTA berjalan dan koneksi internet tersedia.</div>`}}
-function renderTracks(list,target){const el=$(target);if(!list.length){el.innerHTML='<div class="empty">Belum ada lagu di sini. Coba kata kunci lain.</div>';return}el.innerHTML=list.map((t,i)=>`<article class="track"><img class="cover" src="${esc(t.cover?.url||'')}" alt="Cover" onerror="this.style.opacity=.15"><div class="track-title" title="${esc(t.title)}">${esc(t.title)}</div><div class="artist">${esc((t.artists||[]).join(', '))} · ${esc(t.platform||'')}</div><div class="track-actions"><button class="play-small" onclick="playTrack(${i}, '${target.slice(1)}')" title="Putar">▶</button><button class="heart ${isFav(t)?'on':''}" onclick="toggleFavorite(${i}, '${target.slice(1)}')">${isFav(t)?'♥':'♡'}</button><button class="heart" onclick="addToPlaylist(${i}, '${target.slice(1)}')" title="Tambah ke playlist">＋</button></div></article>`).join('')}
-function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function isFav(t){return favorites.some(x=>key(x)===key(t))}
-function sourceList(target){return target==='favorite-list'?favorites:target==='playlist-track-list'?queue:tracks}
-function getTrack(i,target){return sourceList(target)[i]}
-function toggleFavorite(i,target){const t=getTrack(i,target);if(!t)return;if(isFav(t))favorites=favorites.filter(x=>key(x)!==key(t));else favorites.push(t);localStorage.setItem('nocta-favs',JSON.stringify(favorites));if(current&&key(current)===key(t))$('#player-heart').textContent=isFav(t)?'♥':'♡';if($('#search').classList.contains('active'))renderTracks(tracks,'#results');renderFavorites()}
-function renderFavorites(){renderTracks(favorites,'#favorite-list')}
-function playTrack(i,target){const t=getTrack(i,target);if(!t)return;if(!t.stream?.available||!t.stream.url){$('#player-state').textContent='Audio tidak tersedia dari sumber ini';return}current=t;audio.src=t.stream.url;audio.play().catch(()=>{$('#player-state').textContent='Browser menolak pemutaran audio'});$('#player-cover').src=t.cover?.url||'';$('#player-title').textContent=t.title;$('#player-artist').textContent=(t.artists||[]).join(', ');$('#player-heart').textContent=isFav(t)?'♥':'♡';$('#player-state').textContent=`${t.platform} · ${t.stream.bitrate_label||'Audio'}`;$('#lyrics-content').innerHTML=`<b>${esc(t.title)}</b><br>${esc((t.artists||[]).join(', '))}<p>${t.lyrics?.available?'Data lirik tersedia dari sumber. NOCTA menampilkan status ketersediaan saja, bukan menyalin lirik berhak cipta.':'Lirik tidak tersedia untuk lagu ini.'}</p>`;$('#toggle-play').textContent='Ⅱ';queue=sourceList(target)}
-function togglePlay(){if(!audio.src)return;if(audio.paused){audio.play().then(()=>$('#toggle-play').textContent='Ⅱ').catch(()=>{});}else{audio.pause();$('#toggle-play').textContent='▶'}}
-function nextTrack(){if(!current||!queue.length)return;let i=queue.findIndex(x=>key(x)===key(current));let next=(i+1)%queue.length;let t=queue[next];playTrack(next, queue===favorites?'favorite-list':'results')}
-function previousTrack(){if(!current||!queue.length)return;let i=queue.findIndex(x=>key(x)===key(current));let prev=(i-1+queue.length)%queue.length;playTrack(prev, queue===favorites?'favorite-list':'results')}
-audio.addEventListener('timeupdate',()=>{$('#elapsed').textContent=fmt(audio.currentTime);$('#duration').textContent=fmt(audio.duration||0);$('#progress-fill').style.width=((audio.currentTime/(audio.duration||1))*100)+'%'});
-audio.addEventListener('ended',nextTrack);$('#player-heart').onclick=()=>{if(!current)return;const i=(tracks.findIndex(x=>key(x)===key(current)));if(i>=0)toggleFavorite(i,'results');else{const j=favorites.findIndex(x=>key(x)===key(current));if(j>=0)toggleFavorite(j,'favorite-list')}};
-function fmt(n){if(!isFinite(n))return'0:00';return Math.floor(n/60)+':'+String(Math.floor(n%60)).padStart(2,'0')}
-$('#playlist-form').onsubmit=e=>{e.preventDefault();let name=$('#playlist-name').value.trim();if(!name)return;playlists.push({id:Date.now(),name,tracks:[]});localStorage.setItem('nocta-playlists',JSON.stringify(playlists));$('#playlist-name').value='';renderPlaylists()};
-function addToPlaylist(i,target){const t=getTrack(i,target);if(!t)return;if(!playlists.length){alert('Buat playlist dulu di menu Playlist.');go('playlists');return}const choices=playlists.map((p,n)=>`${n+1}. ${p.name}`).join('
-');const pick=Number(prompt('Masukkan nomor playlist:
-'+choices));if(!Number.isInteger(pick)||pick<1||pick>playlists.length)return;const p=playlists[pick-1];if(!p.tracks.some(x=>key(x)===key(t)))p.tracks.push(t);localStorage.setItem('nocta-playlists',JSON.stringify(playlists));alert('Lagu ditambahkan ke '+p.name);renderPlaylists()}
-function renderPlaylists(){let el=$('#playlist-list');el.innerHTML=playlists.length?playlists.map(p=>`<div class="playlist-row"><div><b>♫ ${esc(p.name)}</b><div class="subtle">${p.tracks.length} lagu · Playlist pribadi</div><div class="subtle">${p.tracks.map(t=>esc(t.title)).join(' · ')}</div></div><button class="heart" onclick="deletePlaylist(${p.id})">✕</button></div>`).join(''):'<div class="empty">Belum ada playlist. Buat playlist pertamamu di atas.</div>'}
-function deletePlaylist(id){playlists=playlists.filter(p=>p.id!==id);localStorage.setItem('nocta-playlists',JSON.stringify(playlists));renderPlaylists()}
-
+const $=id=>document.getElementById(id);
+let tracks=[], favorites=JSON.parse(localStorage.getItem('nocta-favs')||'[]'),
+playlists=JSON.parse(localStorage.getItem('nocta-playlists')||'[]'), current=null;
+function save(){localStorage.setItem('nocta-favs',JSON.stringify(favorites));localStorage.setItem('nocta-playlists',JSON.stringify(playlists))}
+function safe(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function card(t){let fav=favorites.some(x=>x.trackId===t.trackId);return `<div class="track"><img src="${safe(t.artworkUrl100)}"><div class="info"><b>${safe(t.trackName)}</b><small>${safe(t.artistName)}</small></div><button onclick="play(${t.trackId})">▶</button><button onclick="toggleFav(${t.trackId})">${fav?'♥':'♡'}</button></div>`}
+function render(list,target){$(target).innerHTML=list.length?list.map(card).join(''):'<div class="empty">Belum ada lagu di sini.</div>'}
+async function search(q){if(!q.trim())return;$('status').textContent='Sedang mencari...';$('results').innerHTML='';try{let r=await fetch('https://itunes.apple.com/search?term='+encodeURIComponent(q)+'&entity=song&limit=30');let d=await r.json();tracks=d.results.filter(x=>x.previewUrl);$('status').textContent=tracks.length?'Hasil pencarian (preview singkat):':'Lagu tidak ditemukan. Coba kata kunci lain.';render(tracks,'results')}catch(e){$('status').textContent='Pencarian gagal. Periksa koneksi internet lalu coba lagi.'}}
+$('searchForm').addEventListener('submit',e=>{e.preventDefault();search($('query').value)});
+function play(id){let t=[...tracks,...favorites,...playlists.flatMap(p=>p.tracks)].find(x=>x.trackId===id);if(!t)return;current=t;$('audio').src=t.previewUrl;$('audio').play();$('cover').src=t.artworkUrl100;$('cover').style.display='block';$('songTitle').textContent=t.trackName;$('songArtist').textContent=t.artistName;$('playPause').textContent='Ⅱ'}
+$('playPause').onclick=()=>{if(!$('audio').src)return;if($('audio').paused){$('audio').play();$('playPause').textContent='Ⅱ'}else{$('audio').pause();$('playPause').textContent='▶'}};
+$('audio').onended=()=> $('playPause').textContent='▶';
+function toggleFav(id){let t=[...tracks,...favorites].find(x=>x.trackId===id);if(!t)return;favorites=favorites.some(x=>x.trackId===id)?favorites.filter(x=>x.trackId!==id):[...favorites,t];save();render(tracks,'results');render(favorites,'favoriteList')}
+window.play=play;window.toggleFav=toggleFav;
+function show(page){document.querySelectorAll('main section').forEach(s=>s.hidden=s.id!==page);document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));if(page==='favorites')render(favorites,'favoriteList');if(page==='playlist')renderPlaylists()}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>show(b.dataset.page));
+function renderPlaylists(){$('playlists').innerHTML=playlists.length?playlists.map((p,i)=>`<div class="track" style="margin-top:12px"><div class="info"><b>${safe(p.name)}</b><small>${p.tracks.length} lagu</small></div><button onclick="addSong(${i})">＋ Lagu</button><button onclick="openList(${i})">Lihat</button></div><div id="pl${i}"></div>`).join(''):'<p class="empty">Belum ada playlist.</p>'}
+function addSong(i){if(!tracks.length){alert('Cari lagu terlebih dahulu di menu Cari Musik.');return}let t=tracks[0];if(!playlists[i].tracks.some(x=>x.trackId===t.trackId))playlists[i].tracks.push(t);save();renderPlaylists();alert('Lagu pertama dari hasil pencarian ditambahkan.')}
+function openList(i){render(playlists[i].tracks,'pl'+i)}
+$('newPlaylist').onclick=()=>{let name=prompt('Nama playlist:');if(name&&name.trim()){playlists.push({name:name.trim(),tracks:[]});save();renderPlaylists()}}
 </script></body></html>
